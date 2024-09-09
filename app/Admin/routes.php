@@ -15,4 +15,6 @@ Route::group([
     $router->get('/about', 'HomeController@about')->name('about');
     $router->get('/customuser', 'HomeController@customuser')->name('customuser');
     $router->post('/customuser', 'HomeController@customuserstore')->name('customuserstore');
+    $router->get('/customusershow', 'HomeController@customusershow');
+    $router->get('/customusergridshow', 'HomeController@customusergridshow');
 });

@@ -41,7 +41,6 @@ class HomeController extends Controller
             ->css_file(Admin::asset("open-admin/css/pages/dashboard.css"))
             ->title('About')
             ->view('about');
-        
     }
     public function customuser(Content $content)
     {
@@ -49,7 +48,6 @@ class HomeController extends Controller
             ->css_file(Admin::asset("open-admin/css/pages/dashboard.css"))
             ->title('Custom User')
             ->view('customuser');
-        
     }
     public function customuserstore(Request $request)
     {
@@ -63,32 +61,56 @@ class HomeController extends Controller
         if ($request->hasFile('image')) {
             // Get the uploaded file
             $image = $request->file('image');
-            
+
             // Create a unique file name
             $filename = time() . '_' . $image->getClientOriginalName();
-            
+
             // Store the file in the 'public/uploads/images' directory
             $filePath = $image->storeAs('uploads/images', $filename, 'public');
-        DB::table('custom_user')->insert([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),
-            'image' => $filename,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-        //echo "successful";
+            DB::table('custom_user')->insert([
+                'name' => $validatedData['name'],
+                'email' => $validatedData['email'],
+                'password' => bcrypt($validatedData['password']),
+                'image' => $filename,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+            //echo "successful";
 
-        // Additional logic or redirection after successful data storage
+            // Additional logic or redirection after successful data storage
 
-        // return redirect()->route('admin.comment')->with('success', 'Comment stored successfully!');
-        //return redirect()->route('admin.comment');
-        return redirect()->back()->with('su', 'Custom User created successfully!');
-    } 
+            // return redirect()->route('admin.comment')->with('success', 'Comment stored successfully!');
+            //return redirect()->route('admin.comment');
+            return redirect()->back()->with('su', 'Custom User created successfully!');
+        }
         //return redirect()->route('/'); 
         //return back()->with('success', 'successfully inserted');
 
-        
-        
+
+
+    }
+    public function customusershow(Content $content)
+    {
+        // Retrieve data using Query Builder
+        $users = DB::table('custom_user')->get();
+
+        // Pass the data to the view
+
+        return $content
+            ->css_file(Admin::asset("open-admin/css/pages/dashboard.css"))
+            ->title('Custom User')
+            ->view('customusershow', ['users' => $users]);
+    }
+    public function customusergridshow(Content $content)
+    {
+        // Retrieve data using Query Builder
+        $users = DB::table('custom_user')->get();
+
+        // Pass the data to the view
+
+        return $content
+            ->css_file(Admin::asset("open-admin/css/pages/dashboard.css"))
+            ->title('Custom User')
+            ->view('customusergridshow', ['users' => $users]);
     }
 }
