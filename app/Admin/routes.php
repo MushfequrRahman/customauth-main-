@@ -17,4 +17,8 @@ Route::group([
     $router->post('/customuser', 'HomeController@customuserstore')->name('customuserstore');
     $router->get('/customusershow', 'HomeController@customusershow');
     $router->get('/customusergridshow', 'HomeController@customusergridshow');
+    $router->get('/dynamicsave', 'HomeController@dynamicsave')->name('dynamcisave');
+    $router->post('/dynamicsave', 'HomeController@dynamicsavestore')->name('dynamicsavestore');
+    $router->get('/dynamicsave1', 'HomeController@dynamicsave1')->name('dynamcisave1');
+    $router->post('/dynamicsave1', 'HomeController@dynamicsavestore1')->name('dynamicsavestore1');
 });
